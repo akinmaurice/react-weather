@@ -12,8 +12,8 @@ class Search extends Component {
             status: false,
             data: {},
             location: {
-                log: 3.39467,
-                lat: 6.45407
+                city: 'Lagos',
+                country: 'NG'
             }
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -37,27 +37,23 @@ class Search extends Component {
             console.log('No city Found');
         }
         else {
-            // Update the State with the New Geo Code
-            const locationUpdate = {
-                log: citySearch.lng,
-                lat: citySearch.lat,
-            }
-            this.setState({ location: locationUpdate });
-            //FInd the Weather of the New State
-            const lat = this.state.location.lat;
-            const lng = this.state.location.log;
-            this.getWeather(lat, lng);
+            const newLocation = {
+                city: citySearch.name,
+                country: citySearch.country,
+            };
+            this.setState({location: newLocation});
+            this.getWeather(citySearch.lat, citySearch.lng);
         }
     }
+    // GET WEATHER METHOD
     getWeather(lat, lng) {
         //Find the Weather of the Default State
         let apiCall = this.apiUrl + "/" + lat + "/" + lng;
         console.log(apiCall);
         axios.get(apiCall)
             .then((response) => {
-                const data = response.data;
-                console.log(data);
-                this.setState({ data: data });
+                const dataResponse = response.data;
+                this.setState({ data: dataResponse });
                 this.setState({ status: true });
             })
             .catch(error => {
@@ -68,17 +64,18 @@ class Search extends Component {
     //Get Weather for Default State
     componentDidMount() {
         //Find the Weather of the Default State
-        const lat = this.state.location.lat;
-        const lng = this.state.location.log;
+        const lat = 6.45407;
+        const lng = 3.39467;
         this.getWeather(lat, lng);
     }
 
     // Render Method
     render() {
         const weatherData = this.state.data;
+        const locationData = this.state.location;
         let views = <Loading />
         if (this.state.status === true) {
-            views = <Display details={weatherData} />;
+            views = <Display details={weatherData} location={locationData} />;
         }
         return (
             <div>

@@ -2,6 +2,7 @@ import React from 'react';
 
 const Display = (props) => {
     const {details} = props;
+    const {location} = props;
     return (
         <div className="row justify-content-center align-items-center">
             <div className="col-md-6 col-sm-6 col-xs-12 col-lg-3">
@@ -14,7 +15,7 @@ const Display = (props) => {
                             {details.icon}
                           </p>
                           <p>
-                            {details.country}
+                            {location.city} - {location.country}
                           </p>
                     </div>
                 </div>

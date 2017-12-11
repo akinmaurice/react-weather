@@ -7,7 +7,7 @@ const Loading = () => {
                 <div className="small-box bg-yellow">
                     <div className="inner">
                           <p>
-                            Loading...
+                            Loading Weather Data...
                           </p>
                     </div>
                 </div>
