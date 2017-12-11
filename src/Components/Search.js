@@ -25,16 +25,18 @@ class Search extends Component {
     onSubmit(event) {
         this.setState({ location: {} });
         this.setState({ data: {} });
-        this.setState({ status: null });
+        this.setState({ status: false });
         event.preventDefault();
         // Function to get the City
         // Geo COde from Our JSON Object List
-        let cityName = this.cityInput.value;
+        let str = this.cityInput.value;
+        str = str.toLowerCase().replace(/\b[a-z]/g, letter => letter.toUpperCase());
+        let cityName = str;
         // FInd the City Name from Our Json Objects
         const citySearch = CityJson.cities.find(item => item.name === cityName);
         if (!citySearch) {
             // No city Found! Do Something
-            console.log('No city Found');
+            this.setState({ status: 'null' });
         }
         else {
             const newLocation = {
@@ -42,6 +44,7 @@ class Search extends Component {
                 country: citySearch.country,
             };
             this.setState({location: newLocation});
+            this.setStatt({status: true});
             this.getWeather(citySearch.lat, citySearch.lng);
         }
     }
@@ -76,6 +79,9 @@ class Search extends Component {
         let views = <Loading />
         if (this.state.status === true) {
             views = <Display details={weatherData} location={locationData} />;
+        }
+        else if (this.state.status === 'null') {
+            views = <div>Could not find the weather for that city</div>
         }
         return (
             <div>

@@ -9,6 +9,19 @@ import registerServiceWorker from './registerServiceWorker';
 import './css/bootstrap.min.css';
 import './css/style.css';
 
+/*
+ fonts Import here
+*/
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Karla', 'Lato', 'Open Sans', 'Roboto', 'sans-serif']
+  }
+});
+
+
+
 const Root = () => {
     return (
       <Router>
