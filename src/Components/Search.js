@@ -43,8 +43,7 @@ class Search extends Component {
                 city: citySearch.name,
                 country: citySearch.country,
             };
-            this.setState({location: newLocation});
-            this.setStatt({status: true});
+            this.setState({location: newLocation, status: true});
             this.getWeather(citySearch.lat, citySearch.lng);
         }
     }
